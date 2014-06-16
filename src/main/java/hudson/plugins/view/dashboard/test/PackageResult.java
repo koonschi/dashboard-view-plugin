@@ -1,22 +1,26 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package hudson.plugins.view.dashboard.test;
 
-import hudson.model.Job;
-import java.util.ArrayList;
-import java.util.List;
-
-public class TestResult {
-
-   private Job job;
+/**
+ *
+ * @author z002uz6a
+ */
+public class PackageResult {
+    
+   private hudson.tasks.test.TestResult packageResult;
    protected int tests;
    protected int success;
    protected int failed;
    protected int skipped;
    
-   protected List<PackageResult> packageResults = new ArrayList<PackageResult>();
-
-   public TestResult(Job job, int tests, int failed, int skipped) {
+   public PackageResult(hudson.tasks.test.TestResult packageResult, int tests, int failed, int skipped) {
       super();
-      this.job = job;
+      this.packageResult = packageResult;
       this.tests = tests;
       this.failed = failed;
       this.skipped = skipped;
@@ -24,8 +28,12 @@ public class TestResult {
       this.success = tests - failed - skipped;
    }
 
-   public Job getJob() {
-      return job;
+   public String getName() {
+      return packageResult.getDisplayName();
+   }
+
+   public String getUrl() {
+      return packageResult.getUrl();
    }
 
    public int getTests() {
@@ -54,9 +62,5 @@ public class TestResult {
 
    public double getSkippedPct() {
       return tests != 0 ? ((double) skipped / tests) : 0d;
-   }
-   
-   public List<PackageResult> getPackageResults() {
-       return packageResults;
    }
 }
